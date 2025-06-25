@@ -1,70 +1,38 @@
 #![allow(clippy::result_large_err)]
 
+pub mod constants;
+pub mod instructions;
+pub mod state;
+pub mod errors;
+
 use anchor_lang::prelude::*;
+
+pub use constants::*;
+pub use instructions::*;
+pub use state::*;
+pub use errors::*;
 
 declare_id!("FqzkXZdwYjurnUKetJCAvaUw5WAqbwzU6gZEwydeEfqS");
 
 #[program]
-pub mod counter {
+pub mod vesting {
     use super::*;
 
-    pub fn close(_ctx: Context<CloseCounter>) -> Result<()> {
-        Ok(())
+    pub fn create_vesting_account(ctx: Context<CreateVestingAccount>, company_name: String) -> Result<()> {
+        process_create_vesting_account(ctx, company_name)
     }
 
-    pub fn decrement(ctx: Context<Update>) -> Result<()> {
-        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_sub(1).unwrap();
-        Ok(())
+    pub fn create_employee_account(
+        ctx: Context<CreateEmployeeAccount>,
+        start_time: i64,
+        end_time: i64,
+        total_amount: u64,
+        cliff_time: i64,
+    ) -> Result<()> {
+        process_create_employee_account(ctx, start_time, end_time, total_amount, cliff_time)
     }
 
-    pub fn increment(ctx: Context<Update>) -> Result<()> {
-        ctx.accounts.counter.count = ctx.accounts.counter.count.checked_add(1).unwrap();
-        Ok(())
+    pub fn claim_token(ctx: Context<ClaimToken>, company_name: String) -> Result<()> {
+        process_claim_token(ctx, company_name)
     }
-
-    pub fn initialize(_ctx: Context<InitializeCounter>) -> Result<()> {
-        Ok(())
-    }
-
-    pub fn set(ctx: Context<Update>, value: u8) -> Result<()> {
-        ctx.accounts.counter.count = value.clone();
-        Ok(())
-    }
-}
-
-#[derive(Accounts)]
-pub struct InitializeCounter<'info> {
-    #[account(mut)]
-    pub payer: Signer<'info>,
-
-    #[account(
-  init,
-  space = 8 + Counter::INIT_SPACE,
-  payer = payer
-    )]
-    pub counter: Account<'info, Counter>,
-    pub system_program: Program<'info, System>,
-}
-#[derive(Accounts)]
-pub struct CloseCounter<'info> {
-    #[account(mut)]
-    pub payer: Signer<'info>,
-
-    #[account(
-  mut,
-  close = payer, // close account and return lamports to payer
-    )]
-    pub counter: Account<'info, Counter>,
-}
-
-#[derive(Accounts)]
-pub struct Update<'info> {
-    #[account(mut)]
-    pub counter: Account<'info, Counter>,
-}
-
-#[account]
-#[derive(InitSpace)]
-pub struct Counter {
-    count: u8,
 }
