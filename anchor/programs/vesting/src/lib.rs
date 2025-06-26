@@ -12,7 +12,7 @@ pub use instructions::*;
 pub use state::*;
 pub use errors::*;
 
-declare_id!("FqzkXZdwYjurnUKetJCAvaUw5WAqbwzU6gZEwydeEfqS");
+declare_id!("12SxgcpPmes3VdkvP7gE8SSg2CgJXaZDha8ym5cQK2vY");
 
 #[program]
 pub mod vesting {

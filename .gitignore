@@ -47,3 +47,13 @@ next-env.d.ts
 /anchor/target/sbpf-solana-solana
 /anchor/target/test-ledger
 /anchor/target/.rustc_info.json
+
+/test-ledger
+
+
+# # Remove the folder from Git tracking but keep it locally
+# git rm -r --cached anchor/target/sbpf-solana-solana
+
+# # Commit the removal
+# git add .gitignore
+# git commit -m "Remove anchor/target/sbpf-solana-solana from tracking and update .gitignore"
