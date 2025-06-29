@@ -72,7 +72,7 @@ export function VestingList() {
     <div className={'space-y-6'}>
       <div>
       <h2>All Employee Vesting Accounts</h2>
-      {employeeAccounts.data?.map((employee) => (
+      {employeeAccounts.data?.length ? employeeAccounts.data.map((employee) => (
         <div key={employee.publicKey.toString()}>
           <p>Employee: {employee.account.beneficiary.toString()}</p>
           <p>Total Amount: {employee.account.totalAmount.toString()}</p>
@@ -81,7 +81,9 @@ export function VestingList() {
           <p>Cliff Time: {new Date(Number(employee.account.cliffTime) * 1000).toLocaleDateString()}</p>
           <ExplorerLink path={`account/${employee.publicKey}`} label={ellipsify(employee.publicKey.toString())} />
         </div>
-      ))}
+      )) : (
+        <p>No employee accounts found.</p>
+      )}
     </div>
       {accounts.isLoading ? (
         <span className="loading loading-spinner loading-lg"></span>

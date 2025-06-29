@@ -3,6 +3,7 @@ import './globals.css'
 import { AppProviders } from '@/components/app-providers'
 import { AppLayout } from '@/components/app-layout'
 import React from 'react'
+import { CompanyProvider } from '@/contexts/company-context'
 
 export const metadata: Metadata = {
   title: 'Token vesting',
@@ -21,7 +22,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en" suppressHydrationWarning>
       <body className={`antialiased`}>
         <AppProviders>
-          <AppLayout links={links}>{children}</AppLayout>
+          <CompanyProvider>
+
+          <AppLayout links={links}>
+            {children}
+            </AppLayout>
+          </CompanyProvider>
         </AppProviders>
       </body>
     </html>
