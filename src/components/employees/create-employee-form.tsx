@@ -12,7 +12,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
 import { useCompany } from '@/contexts/company-context'
 import { ellipsify } from '@/utils/ellipsify'
-import { AlertTriangle, CheckCircle, Calendar, User, Wallet, Building2 } from 'lucide-react'
+import { AlertTriangle, CheckCircle, Calendar, Wallet, Building2 } from 'lucide-react'
 import { useVestingProgramAccount } from '../vesting/vesting-data-access'
 
 interface CreateEmployeeFormData {

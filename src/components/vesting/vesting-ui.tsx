@@ -8,7 +8,6 @@ import { ellipsify } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card'
 import { useWallet } from '@solana/wallet-adapter-react'
-import { publicKey } from '@coral-xyz/anchor/dist/cjs/utils'
 
 export function VestingCreate() {
   const { createVestingAccount } = useVestingProgram()
@@ -114,7 +113,7 @@ function VestingCard({ account }: { account: PublicKey }) {
   const [endTime, setEndTime] = useState<number>(0)
   const [totalAmount, setTotalAmount] = useState<number>(0)
   const [cliffTime, setCliffTime] = useState<number>(0)
-  const [beneficiary, setBeneficiary] = useState<string>('564Scsx14b73fsRj3B6YetSArtGqcwjHnEKakouXBKkh')
+  const beneficiary = '564Scsx14b73fsRj3B6YetSArtGqcwjHnEKakouXBKkh'
 
   const companyName = useMemo(() => accountQuery.data?.companyName ?? '', [accountQuery.data?.companyName])
 
@@ -179,23 +178,23 @@ function VestingCard({ account }: { account: PublicKey }) {
   )
 }
 
-function AllEmployeesList() {
-  const { employeeAccounts } = useVestingProgram()
+// function AllEmployeesList() {
+//   const { employeeAccounts } = useVestingProgram()
 
-  console.log('Employee Accounts:', employeeAccounts)
+//   console.log('Employee Accounts:', employeeAccounts)
 
-  if (employeeAccounts.isLoading) return <div>Loading...</div>
+//   if (employeeAccounts.isLoading) return <div>Loading...</div>
 
-  return (
-    <div>
-      <h2>All Employee Vesting Accounts</h2>
-      {employeeAccounts.data?.map((employee) => (
-        <div key={employee.publicKey.toString()}>
-          <p>Employee: {employee.account.beneficiary.toString()}</p>
-          <p>Total Amount: {employee.account.totalAmount.toString()}</p>
-          <p>Start Time: {new Date(Number(employee.account.startTime) * 1000).toLocaleDateString()}</p>
-        </div>
-      ))}
-    </div>
-  )
-}
+//   return (
+//     <div>
+//       <h2>All Employee Vesting Accounts</h2>
+//       {employeeAccounts.data?.map((employee) => (
+//         <div key={employee.publicKey.toString()}>
+//           <p>Employee: {employee.account.beneficiary.toString()}</p>
+//           <p>Total Amount: {employee.account.totalAmount.toString()}</p>
+//           <p>Start Time: {new Date(Number(employee.account.startTime) * 1000).toLocaleDateString()}</p>
+//         </div>
+//       ))}
+//     </div>
+//   )
+// }

@@ -68,12 +68,10 @@ describe('Vesting Smart Contract Tests', () => {
 
     // Derive PDAs
     ;[vestingAccountKey] = PublicKey.findProgramAddressSync([Buffer.from(companyName)], program.programId)
-
     ;[treasuryTokenAccount] = PublicKey.findProgramAddressSync(
       [Buffer.from('vesting_treasury'), Buffer.from(companyName)],
       program.programId,
     )
-
     ;[employeeAccount] = PublicKey.findProgramAddressSync(
       [Buffer.from('employee_vesting'), beneficiary.publicKey.toBuffer(), vestingAccountKey.toBuffer()],
       program.programId,

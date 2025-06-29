@@ -2,15 +2,11 @@
 
 import { ThemeProvider } from './theme-provider'
 import { Toaster } from './ui/sonner'
-import { AppHeader } from '@/components/app-header'
 import React from 'react'
-import { AppFooter } from '@/components/app-footer'
-import { ClusterChecker } from '@/components/cluster/cluster-ui'
-import { AccountChecker } from '@/components/account/account-ui'
 
 export function AppLayout({
   children,
-  links,
+  // links,
 }: {
   children: React.ReactNode
   links: { label: string; path: string }[]

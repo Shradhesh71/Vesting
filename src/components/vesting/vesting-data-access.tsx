@@ -111,7 +111,7 @@ export function useVestingProgram() {
       }
 
       // Calculate remaining amount (not yet withdrawn)
-      const remainingAmount = vestedAmount - totalWithdrawn
+      // const remainingAmount = vestedAmount - totalWithdrawn
 
       totalTokensVested += vestedAmount
       totalTokensRemaining += totalAmount - vestedAmount
