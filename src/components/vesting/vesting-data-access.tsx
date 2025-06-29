@@ -92,7 +92,7 @@ export function useVestingProgram() {
       const startTime = account.startTime.toNumber()
       const endTime = account.endTime.toNumber()
       const cliffTime = account.cliffTime.toNumber()
-      const totalWithdrawn = account.totalWithdrawn?.toNumber() || 0
+      // const totalWithdrawn = account.totalWithdrawn?.toNumber() || 0
 
       // Calculate vested amount based on current time
       let vestedAmount = 0
