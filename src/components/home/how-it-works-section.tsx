@@ -1,26 +1,26 @@
-import { ArrowRight } from "lucide-react"
+import { ArrowRight } from 'lucide-react'
 
 export function HowItWorksSection() {
   const steps = [
     {
-      number: "01",
-      title: "Create Vesting Contract",
-      description: "Set up your token vesting parameters including schedules, cliffs, and beneficiaries",
+      number: '01',
+      title: 'Create Vesting Contract',
+      description: 'Set up your token vesting parameters including schedules, cliffs, and beneficiaries',
     },
     {
-      number: "02",
-      title: "Deposit Tokens",
-      description: "Securely deposit your tokens into the smart contract for automated distribution",
+      number: '02',
+      title: 'Deposit Tokens',
+      description: 'Securely deposit your tokens into the smart contract for automated distribution',
     },
     {
-      number: "03",
-      title: "Automated Release",
-      description: "Tokens are automatically released according to your predefined schedule",
+      number: '03',
+      title: 'Automated Release',
+      description: 'Tokens are automatically released according to your predefined schedule',
     },
     {
-      number: "04",
-      title: "Track & Monitor",
-      description: "Monitor progress and track all vesting activities through our dashboard",
+      number: '04',
+      title: 'Track & Monitor',
+      description: 'Monitor progress and track all vesting activities through our dashboard',
     },
   ]
 

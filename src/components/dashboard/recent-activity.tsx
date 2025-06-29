@@ -1,10 +1,10 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { LoadingSkeleton } from "@/components/launch/loading-skeleton"
-import { Clock, UserPlus, TrendingUp } from "lucide-react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { LoadingSkeleton } from '@/components/launch/loading-skeleton'
+import { Clock, UserPlus, TrendingUp } from 'lucide-react'
 
 interface ActivityItem {
   id: string
-  type: "vesting" | "employee_added" | "milestone"
+  type: 'vesting' | 'employee_added' | 'milestone'
   description: string
   timestamp: Date
   amount?: number
@@ -18,51 +18,51 @@ interface RecentActivityProps {
 export function RecentActivity({ activities, isLoading }: RecentActivityProps) {
   const mockActivities: ActivityItem[] = [
     {
-      id: "1",
-      type: "vesting",
-      description: "Alice Johnson received 250 tokens",
+      id: '1',
+      type: 'vesting',
+      description: 'Alice Johnson received 250 tokens',
       timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000),
       amount: 250,
     },
     {
-      id: "2",
-      type: "employee_added",
-      description: "New employee Bob Smith added to vesting program",
+      id: '2',
+      type: 'employee_added',
+      description: 'New employee Bob Smith added to vesting program',
       timestamp: new Date(Date.now() - 5 * 60 * 60 * 1000),
     },
     {
-      id: "3",
-      type: "milestone",
-      description: "Carol Davis completed cliff period",
+      id: '3',
+      type: 'milestone',
+      description: 'Carol Davis completed cliff period',
       timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000),
     },
   ]
 
   const activityData = activities || mockActivities
 
-  const getActivityIcon = (type: ActivityItem["type"]) => {
+  const getActivityIcon = (type: ActivityItem['type']) => {
     switch (type) {
-      case "vesting":
+      case 'vesting':
         return TrendingUp
-      case "employee_added":
+      case 'employee_added':
         return UserPlus
-      case "milestone":
+      case 'milestone':
         return Clock
       default:
         return Clock
     }
   }
 
-  const getActivityColor = (type: ActivityItem["type"]) => {
+  const getActivityColor = (type: ActivityItem['type']) => {
     switch (type) {
-      case "vesting":
-        return "text-green-400"
-      case "employee_added":
-        return "text-blue-400"
-      case "milestone":
-        return "text-purple-400"
+      case 'vesting':
+        return 'text-green-400'
+      case 'employee_added':
+        return 'text-blue-400'
+      case 'milestone':
+        return 'text-purple-400'
       default:
-        return "text-gray-400"
+        return 'text-gray-400'
     }
   }
 

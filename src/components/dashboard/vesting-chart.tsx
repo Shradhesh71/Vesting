@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { LoadingSkeleton } from "@/components/launch/loading-skeleton"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { LoadingSkeleton } from '@/components/launch/loading-skeleton'
 
 interface VestingChartProps {
   data?: Array<{ month: string; vested: number; remaining: number }>
@@ -11,12 +11,12 @@ interface VestingChartProps {
 export function VestingChart({ data, isLoading }: VestingChartProps) {
   // Mock chart data
   const chartData = data || [
-    { month: "Jan", vested: 4000, remaining: 8000 },
-    { month: "Feb", vested: 5000, remaining: 7000 },
-    { month: "Mar", vested: 6000, remaining: 6000 },
-    { month: "Apr", vested: 7000, remaining: 5000 },
-    { month: "May", vested: 8000, remaining: 4000 },
-    { month: "Jun", vested: 9000, remaining: 3000 },
+    { month: 'Jan', vested: 4000, remaining: 8000 },
+    { month: 'Feb', vested: 5000, remaining: 7000 },
+    { month: 'Mar', vested: 6000, remaining: 6000 },
+    { month: 'Apr', vested: 7000, remaining: 5000 },
+    { month: 'May', vested: 8000, remaining: 4000 },
+    { month: 'Jun', vested: 9000, remaining: 3000 },
   ]
 
   if (isLoading) {

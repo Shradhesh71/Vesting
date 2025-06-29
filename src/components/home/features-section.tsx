@@ -1,37 +1,37 @@
-import { Calendar, Shield, BarChart3, Clock, Users, Zap } from "lucide-react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Calendar, Shield, BarChart3, Clock, Users, Zap } from 'lucide-react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 
 export function FeaturesSection() {
   const features = [
     {
       icon: Calendar,
-      title: "Flexible Scheduling",
-      description: "Create custom vesting schedules with cliffs, linear releases, and milestone-based unlocks",
+      title: 'Flexible Scheduling',
+      description: 'Create custom vesting schedules with cliffs, linear releases, and milestone-based unlocks',
     },
     {
       icon: Shield,
-      title: "Audited Smart Contracts",
-      description: "Battle-tested contracts audited by leading security firms for maximum protection",
+      title: 'Audited Smart Contracts',
+      description: 'Battle-tested contracts audited by leading security firms for maximum protection',
     },
     {
       icon: BarChart3,
-      title: "Real-time Analytics",
-      description: "Track vesting progress, unlock schedules, and distribution metrics in real-time",
+      title: 'Real-time Analytics',
+      description: 'Track vesting progress, unlock schedules, and distribution metrics in real-time',
     },
     {
       icon: Clock,
-      title: "Automated Releases",
-      description: "Set-and-forget automation ensures tokens are released exactly when scheduled",
+      title: 'Automated Releases',
+      description: 'Set-and-forget automation ensures tokens are released exactly when scheduled',
     },
     {
       icon: Users,
-      title: "Multi-party Management",
-      description: "Manage different stakeholder groups with unique vesting terms and conditions",
+      title: 'Multi-party Management',
+      description: 'Manage different stakeholder groups with unique vesting terms and conditions',
     },
     {
       icon: Zap,
-      title: "Lightning Fast",
-      description: "Built on Solana for instant transactions and minimal fees",
+      title: 'Lightning Fast',
+      description: 'Built on Solana for instant transactions and minimal fees',
     },
   ]
 

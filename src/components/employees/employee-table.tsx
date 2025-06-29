@@ -1,53 +1,53 @@
-"use client"
+'use client'
 
-import { useState, useMemo } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Badge } from "@/components/ui/badge"
-import { LoadingSkeleton } from "@/components/launch/loading-skeleton"
-import { ellipsify } from "@/utils/ellipsify"
-import { Search, ArrowUpDown, Eye, MoreHorizontal, Calendar } from "lucide-react"
-import { ExplorerLink } from "../cluster/cluster-ui"
-import { useVestingProgram } from "../vesting/vesting-data-access"
-import { PublicKey } from "@solana/web3.js"
+import { useState, useMemo } from 'react'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Badge } from '@/components/ui/badge'
+import { LoadingSkeleton } from '@/components/launch/loading-skeleton'
+import { ellipsify } from '@/utils/ellipsify'
+import { Search, ArrowUpDown, Eye, MoreHorizontal, Calendar } from 'lucide-react'
+import { ExplorerLink } from '../cluster/cluster-ui'
+import { useVestingProgram } from '../vesting/vesting-data-access'
+import { PublicKey } from '@solana/web3.js'
 
 interface FormattedEmployeeAccount {
-  id: string;
-  publicKey: PublicKey;
-  beneficiaryAddress: string;
-  startTime: Date;
-  endTime: Date;
-  cliffTime: Date;
-  totalAmount: number;
-  vestedAmount: number;
-  status: 'active' | 'completed' | 'pending' | 'paused';
-  vestingAccount: PublicKey;
+  id: string
+  publicKey: PublicKey
+  beneficiaryAddress: string
+  startTime: Date
+  endTime: Date
+  cliffTime: Date
+  totalAmount: number
+  vestedAmount: number
+  status: 'active' | 'completed' | 'pending' | 'paused'
+  vestingAccount: PublicKey
 }
 
 export function EmployeeTable() {
   const { employeeAccounts } = useVestingProgram()
   const isLoading = employeeAccounts.isLoading
-  
-  const [searchTerm, setSearchTerm] = useState("")
-  const [sortField, setSortField] = useState<keyof FormattedEmployeeAccount>("endTime")
-  const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
+
+  const [searchTerm, setSearchTerm] = useState('')
+  const [sortField, setSortField] = useState<keyof FormattedEmployeeAccount>('endTime')
+  const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc')
 
   const employees = useMemo(() => {
     if (!employeeAccounts.data) return []
-    
+
     return employeeAccounts.data.map((item) => {
       const account = item.account
-      
+
       const startDate = new Date(account.startTime.toNumber() * 1000)
       const endDate = new Date(account.endTime.toNumber() * 1000)
       const cliffDate = new Date(account.cliffTime.toNumber() * 1000)
       const totalAmount = account.totalAmount.toNumber()
-      
+
       const now = new Date()
       let vestedAmount = 0
       let status: FormattedEmployeeAccount['status'] = 'pending'
-      
+
       if (now < startDate) {
         vestedAmount = 0
         status = 'pending'
@@ -58,7 +58,7 @@ export function EmployeeTable() {
         const timePassedSinceStart = now.getTime() - startDate.getTime()
         const vestingDuration = endDate.getTime() - startDate.getTime()
         const vestingPercentage = timePassedSinceStart / vestingDuration
-        
+
         if (now >= cliffDate) {
           vestedAmount = Math.floor(totalAmount * vestingPercentage)
           status = 'active'
@@ -67,7 +67,7 @@ export function EmployeeTable() {
           status = 'pending'
         }
       }
-      
+
       return {
         id: item.publicKey.toString(),
         publicKey: item.publicKey,
@@ -78,39 +78,39 @@ export function EmployeeTable() {
         totalAmount,
         vestedAmount,
         status,
-        vestingAccount: account.vestingAccount
+        vestingAccount: account.vestingAccount,
       }
     })
   }, [employeeAccounts.data])
 
-  const filteredEmployees = employees.filter(
-    (employee) => employee.beneficiaryAddress.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredEmployees = employees.filter((employee) =>
+    employee.beneficiaryAddress.toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
   const sortedEmployees = [...filteredEmployees].sort((a, b) => {
     const aValue = a[sortField]
     const bValue = b[sortField]
 
-    if (aValue < bValue) return sortDirection === "asc" ? -1 : 1
-    if (aValue > bValue) return sortDirection === "asc" ? 1 : -1
+    if (aValue < bValue) return sortDirection === 'asc' ? -1 : 1
+    if (aValue > bValue) return sortDirection === 'asc' ? 1 : -1
     return 0
   })
 
   const handleSort = (field: keyof FormattedEmployeeAccount) => {
     if (field === sortField) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc")
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc')
     } else {
       setSortField(field)
-      setSortDirection("asc")
+      setSortDirection('asc')
     }
   }
 
-  const getStatusBadge = (status: FormattedEmployeeAccount["status"]) => {
+  const getStatusBadge = (status: FormattedEmployeeAccount['status']) => {
     const variants = {
-      active: "bg-green-900 text-green-300 border-green-700",
-      completed: "bg-blue-900 text-blue-300 border-blue-700",
-      pending: "bg-yellow-900 text-yellow-300 border-yellow-700",
-      paused: "bg-gray-900 text-gray-300 border-gray-700",
+      active: 'bg-green-900 text-green-300 border-green-700',
+      completed: 'bg-blue-900 text-blue-300 border-blue-700',
+      pending: 'bg-yellow-900 text-yellow-300 border-yellow-700',
+      paused: 'bg-gray-900 text-gray-300 border-gray-700',
     }
 
     return <Badge className={`${variants[status]} border`}>{status.charAt(0).toUpperCase() + status.slice(1)}</Badge>
@@ -166,7 +166,7 @@ export function EmployeeTable() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleSort("beneficiaryAddress")}
+                    onClick={() => handleSort('beneficiaryAddress')}
                     className="text-gray-400 hover:text-white p-0 h-auto font-medium"
                   >
                     Beneficiary
@@ -177,7 +177,7 @@ export function EmployeeTable() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleSort("status")}
+                    onClick={() => handleSort('status')}
                     className="text-gray-400 hover:text-white p-0 h-auto font-medium"
                   >
                     Status
@@ -188,7 +188,7 @@ export function EmployeeTable() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleSort("totalAmount")}
+                    onClick={() => handleSort('totalAmount')}
                     className="text-gray-400 hover:text-white p-0 h-auto font-medium"
                   >
                     Total Amount
@@ -200,7 +200,7 @@ export function EmployeeTable() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleSort("startTime")}
+                    onClick={() => handleSort('startTime')}
                     className="text-gray-400 hover:text-white p-0 h-auto font-medium"
                   >
                     Start Date
@@ -211,7 +211,7 @@ export function EmployeeTable() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    onClick={() => handleSort("endTime")}
+                    onClick={() => handleSort('endTime')}
                     className="text-gray-400 hover:text-white p-0 h-auto font-medium"
                   >
                     End Date

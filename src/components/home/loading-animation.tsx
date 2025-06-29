@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 
 export function LoadingAnimation() {
   const [isLoading, setIsLoading] = useState(true)
@@ -22,7 +22,7 @@ export function LoadingAnimation() {
           <div className="w-16 h-16 border-4 border-purple-200 border-t-purple-500 rounded-full animate-spin mx-auto mb-4"></div>
           <div
             className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-blue-400 rounded-full animate-spin mx-auto"
-            style={{ animationDirection: "reverse", animationDuration: "1s" }}
+            style={{ animationDirection: 'reverse', animationDuration: '1s' }}
           ></div>
         </div>
         <h2 className="text-2xl font-bold text-white mb-2">Vestify</h2>

@@ -1,9 +1,9 @@
 export function StatsSection() {
   const stats = [
-    { value: "$50M+", label: "Total Value Locked" },
-    { value: "1,000+", label: "Active Vesting Contracts" },
-    { value: "99.9%", label: "Uptime Guarantee" },
-    { value: "24/7", label: "Security Monitoring" },
+    { value: '$50M+', label: 'Total Value Locked' },
+    { value: '1,000+', label: 'Active Vesting Contracts' },
+    { value: '99.9%', label: 'Uptime Guarantee' },
+    { value: '24/7', label: 'Security Monitoring' },
   ]
 
   return (

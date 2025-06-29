@@ -20,10 +20,10 @@ export function AppLayout({
       <div className="flex flex-col min-h-screen">
         {/* <AppHeader links={links} /> */}
         {/* <main className="flex-grow container mx-auto p-4"> */}
-          {/* <ClusterChecker>
+        {/* <ClusterChecker>
             <AccountChecker />
           </ClusterChecker> */}
-          {children}
+        {children}
         {/* </main> */}
         {/* <AppFooter /> */}
       </div>

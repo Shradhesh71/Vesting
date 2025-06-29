@@ -1,24 +1,24 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { ellipsify } from "@/utils/ellipsify"
-import { FormSkeleton } from "./loading-skeleton"
-import { Shield, Info, CheckCircle, AlertTriangle } from "lucide-react"
-import { ExplorerLink } from "../cluster/cluster-ui"
-import { useVestingProgram } from "../vesting/vesting-data-access"
+import { useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Label } from '@/components/ui/label'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { ellipsify } from '@/utils/ellipsify'
+import { FormSkeleton } from './loading-skeleton'
+import { Shield, Info, CheckCircle, AlertTriangle } from 'lucide-react'
+import { ExplorerLink } from '../cluster/cluster-ui'
+import { useVestingProgram } from '../vesting/vesting-data-access'
 
 export function LaunchVestingForm() {
   const { programId, isLoading: programLoading, createVestingAccount } = useVestingProgram()
   const [formData, setFormData] = useState({
-    companyName: "",
-    mintTokenAddress: "",
+    companyName: '',
+    mintTokenAddress: '',
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
@@ -27,15 +27,15 @@ export function LaunchVestingForm() {
     const newErrors: Record<string, string> = {}
 
     if (!formData.companyName.trim()) {
-      newErrors.companyName = "Company name is required"
+      newErrors.companyName = 'Company name is required'
     }
 
     if (!formData.mintTokenAddress.trim()) {
-      newErrors.mintTokenAddress = "Token mint address is required"
+      newErrors.mintTokenAddress = 'Token mint address is required'
     } else {
       const base58Regex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/
       if (!base58Regex.test(formData.mintTokenAddress)) {
-        newErrors.mintTokenAddress = "Please enter a valid Solana address"
+        newErrors.mintTokenAddress = 'Please enter a valid Solana address'
       }
     }
 
@@ -52,20 +52,20 @@ export function LaunchVestingForm() {
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 2000))
-      await createVestingAccount.mutateAsync({ companyName: formData.companyName, mint: formData.mintTokenAddress });
-      console.log("Vesting contract created:", formData)
+      await createVestingAccount.mutateAsync({ companyName: formData.companyName, mint: formData.mintTokenAddress })
+      console.log('Vesting contract created:', formData)
     } catch (error) {
-      console.error("Error creating vesting contract:", error)
+      console.error('Error creating vesting contract:', error)
     } finally {
       setIsSubmitting(false)
-      setFormData({ companyName: "", mintTokenAddress: "" })
+      setFormData({ companyName: '', mintTokenAddress: '' })
     }
   }
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
     if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: "" }))
+      setErrors((prev) => ({ ...prev, [field]: '' }))
     }
   }
 
@@ -116,9 +116,9 @@ export function LaunchVestingForm() {
                 type="text"
                 placeholder="Enter your company name"
                 value={formData.companyName}
-                onChange={(e) => handleInputChange("companyName", e.target.value)}
+                onChange={(e) => handleInputChange('companyName', e.target.value)}
                 className={`bg-gray-900 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500 ${
-                  errors.companyName ? "border-red-500" : ""
+                  errors.companyName ? 'border-red-500' : ''
                 }`}
                 disabled={isSubmitting}
               />
@@ -140,9 +140,9 @@ export function LaunchVestingForm() {
                 type="text"
                 placeholder="Enter SPL token mint address"
                 value={formData.mintTokenAddress}
-                onChange={(e) => handleInputChange("mintTokenAddress", e.target.value)}
+                onChange={(e) => handleInputChange('mintTokenAddress', e.target.value)}
                 className={`bg-gray-900 border-gray-600 text-white placeholder-gray-400 focus:border-purple-500 font-mono ${
-                  errors.mintTokenAddress ? "border-red-500" : ""
+                  errors.mintTokenAddress ? 'border-red-500' : ''
                 }`}
                 disabled={isSubmitting}
               />
@@ -175,7 +175,7 @@ export function LaunchVestingForm() {
                   <span>Creating Vesting Contract...</span>
                 </div>
               ) : (
-                "Launch Vesting Contract"
+                'Launch Vesting Contract'
               )}
             </Button>
           </form>

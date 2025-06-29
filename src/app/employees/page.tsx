@@ -1,13 +1,13 @@
-"use client"
+'use client'
 
-import { Navigation } from "@/components/home/navigation"
-import { Footer } from "@/components/home/footer"
-import { EmployeeTable } from "@/components/employees/employee-table"
-import { NoCompanySelected } from "@/components/company/no-company-selected"
-import { useCompany } from "@/contexts/company-context"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft, Plus, Download } from "lucide-react"
-import Link from "next/link"
+import { Navigation } from '@/components/home/navigation'
+import { Footer } from '@/components/home/footer'
+import { EmployeeTable } from '@/components/employees/employee-table'
+import { NoCompanySelected } from '@/components/company/no-company-selected'
+import { useCompany } from '@/contexts/company-context'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft, Plus, Download } from 'lucide-react'
+import Link from 'next/link'
 
 export default function EmployeesPage() {
   const { selectedCompany } = useCompany()

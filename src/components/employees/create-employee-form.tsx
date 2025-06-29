@@ -1,29 +1,28 @@
-"use client"
+'use client'
 
-import type React from "react"
+import type React from 'react'
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Badge } from "@/components/ui/badge"
-import { useCompany } from "@/contexts/company-context"
-import { ellipsify } from "@/utils/ellipsify"
-import { AlertTriangle, CheckCircle, Calendar, User, Wallet, Building2 } from "lucide-react"
-import { useVestingProgramAccount } from "../vesting/vesting-data-access"
-
+import { useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Badge } from '@/components/ui/badge'
+import { useCompany } from '@/contexts/company-context'
+import { ellipsify } from '@/utils/ellipsify'
+import { AlertTriangle, CheckCircle, Calendar, User, Wallet, Building2 } from 'lucide-react'
+import { useVestingProgramAccount } from '../vesting/vesting-data-access'
 
 interface CreateEmployeeFormData {
-//   employeeName: string
-//   department: string
-//   position: string
+  //   employeeName: string
+  //   department: string
+  //   position: string
   beneficiaryAddress: string
   startTime: string
   endTime: string
-  cliffTime: string 
+  cliffTime: string
   totalAmount: string
 }
 
@@ -34,19 +33,19 @@ export function CreateEmployeeForm() {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [success, setSuccess] = useState(false)
 
-  const { createEmployeeVestingAccount } = selectedCompany 
-    ? useVestingProgramAccount({ account: selectedCompany.publicKey }) 
+  const { createEmployeeVestingAccount } = selectedCompany
+    ? useVestingProgramAccount({ account: selectedCompany.publicKey })
     : { createEmployeeVestingAccount: null }
 
   const [formData, setFormData] = useState<CreateEmployeeFormData>({
     // employeeName: "",
     // department: "",
     // position: "",
-    beneficiaryAddress: "",
-    startTime: "",
-    endTime: "",
-    cliffTime: "",
-    totalAmount: "",
+    beneficiaryAddress: '',
+    startTime: '',
+    endTime: '',
+    cliffTime: '',
+    totalAmount: '',
   })
 
   const validateForm = () => {
@@ -57,30 +56,30 @@ export function CreateEmployeeForm() {
     // }
 
     if (!formData.beneficiaryAddress.trim()) {
-      newErrors.beneficiaryAddress = "Beneficiary address is required"
+      newErrors.beneficiaryAddress = 'Beneficiary address is required'
     } else {
       const base58Regex = /^[1-9A-HJ-NP-Za-km-z]{32,44}$/
       if (!base58Regex.test(formData.beneficiaryAddress)) {
-        newErrors.beneficiaryAddress = "Please enter a valid Solana address"
+        newErrors.beneficiaryAddress = 'Please enter a valid Solana address'
       }
     }
 
     if (!formData.startTime) {
-      newErrors.startTime = "Start time is required"
+      newErrors.startTime = 'Start time is required'
     }
 
     if (!formData.endTime) {
-      newErrors.endTime = "End time is required"
+      newErrors.endTime = 'End time is required'
     }
 
     if (!formData.cliffTime) {
-      newErrors.cliffTime = "Cliff time is required"
+      newErrors.cliffTime = 'Cliff time is required'
     }
 
     if (!formData.totalAmount) {
-      newErrors.totalAmount = "Total amount is required"
+      newErrors.totalAmount = 'Total amount is required'
     } else if (isNaN(Number(formData.totalAmount)) || Number(formData.totalAmount) <= 0) {
-      newErrors.totalAmount = "Please enter a valid positive number"
+      newErrors.totalAmount = 'Please enter a valid positive number'
     }
 
     // Date validations
@@ -89,7 +88,7 @@ export function CreateEmployeeForm() {
       const endDate = new Date(formData.endTime)
 
       if (endDate <= startDate) {
-        newErrors.endTime = "End time must be after start time"
+        newErrors.endTime = 'End time must be after start time'
       }
     }
 
@@ -98,7 +97,7 @@ export function CreateEmployeeForm() {
       const cliffDate = new Date(formData.cliffTime)
 
       if (cliffDate < startDate) {
-        newErrors.cliffTime = "Cliff time cannot be before start time"
+        newErrors.cliffTime = 'Cliff time cannot be before start time'
       }
     }
 
@@ -107,7 +106,7 @@ export function CreateEmployeeForm() {
       const endDate = new Date(formData.endTime)
 
       if (cliffDate > endDate) {
-        newErrors.cliffTime = "Cliff time cannot be after end time"
+        newErrors.cliffTime = 'Cliff time cannot be after end time'
       }
     }
 
@@ -118,7 +117,7 @@ export function CreateEmployeeForm() {
   const handleInputChange = (field: keyof CreateEmployeeFormData, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }))
     if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: "" }))
+      setErrors((prev) => ({ ...prev, [field]: '' }))
     }
   }
 
@@ -126,7 +125,7 @@ export function CreateEmployeeForm() {
     e.preventDefault()
 
     if (!selectedCompany) {
-      alert("Please select a company first")
+      alert('Please select a company first')
       return
     }
 
@@ -144,15 +143,15 @@ export function CreateEmployeeForm() {
         endTime: endTimeUnix,
         cliffTime: cliffTimeUnix,
         totalAmount: Number(formData.totalAmount),
-        beneficiary: formData.beneficiaryAddress
+        beneficiary: formData.beneficiaryAddress,
       })
 
       setSuccess(true)
       setTimeout(() => {
-        router.push("/employees")
+        router.push('/employees')
       }, 2000)
     } catch (error) {
-      console.error("Error creating employee account:", error)
+      console.error('Error creating employee account:', error)
     } finally {
       setIsSubmitting(false)
     }
@@ -168,7 +167,7 @@ export function CreateEmployeeForm() {
             <p className="text-gray-400 mb-4">
               Please select a company from the dashboard to create employee accounts.
             </p>
-            <Button onClick={() => router.push("/dashboard")} className="bg-gradient-to-r from-purple-500 to-blue-600">
+            <Button onClick={() => router.push('/dashboard')} className="bg-gradient-to-r from-purple-500 to-blue-600">
               Go to Dashboard
             </Button>
           </div>
@@ -185,7 +184,7 @@ export function CreateEmployeeForm() {
             <CheckCircle className="w-16 h-16 text-green-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-white mb-2">Employee Account Created!</h3>
             <p className="text-gray-400 mb-4">
-              The vesting account for {formData.beneficiaryAddress} has been successfully created for{" "}
+              The vesting account for {formData.beneficiaryAddress} has been successfully created for{' '}
               {selectedCompany.companyName}.
             </p>
             <p className="text-sm text-gray-500">Redirecting to employee list...</p>
@@ -234,9 +233,9 @@ export function CreateEmployeeForm() {
             <Input
               id="beneficiaryAddress"
               value={formData.beneficiaryAddress}
-              onChange={(e) => handleInputChange("beneficiaryAddress", e.target.value)}
+              onChange={(e) => handleInputChange('beneficiaryAddress', e.target.value)}
               className={`bg-gray-900 border-gray-600 text-white placeholder-gray-400 font-mono ${
-                errors.beneficiaryAddress ? "border-red-500" : ""
+                errors.beneficiaryAddress ? 'border-red-500' : ''
               }`}
               placeholder="Enter Solana wallet address"
               disabled={isSubmitting}
@@ -270,8 +269,8 @@ export function CreateEmployeeForm() {
                 id="startTime"
                 type="datetime-local"
                 value={formData.startTime}
-                onChange={(e) => handleInputChange("startTime", e.target.value)}
-                className={`bg-gray-900 border-gray-600 text-white ${errors.startTime ? "border-red-500" : ""}`}
+                onChange={(e) => handleInputChange('startTime', e.target.value)}
+                className={`bg-gray-900 border-gray-600 text-white ${errors.startTime ? 'border-red-500' : ''}`}
                 disabled={isSubmitting}
               />
               {errors.startTime && (
@@ -290,8 +289,8 @@ export function CreateEmployeeForm() {
                 id="endTime"
                 type="datetime-local"
                 value={formData.endTime}
-                onChange={(e) => handleInputChange("endTime", e.target.value)}
-                className={`bg-gray-900 border-gray-600 text-white ${errors.endTime ? "border-red-500" : ""}`}
+                onChange={(e) => handleInputChange('endTime', e.target.value)}
+                className={`bg-gray-900 border-gray-600 text-white ${errors.endTime ? 'border-red-500' : ''}`}
                 disabled={isSubmitting}
               />
               {errors.endTime && (
@@ -310,8 +309,8 @@ export function CreateEmployeeForm() {
                 id="cliffTime"
                 type="datetime-local"
                 value={formData.cliffTime}
-                onChange={(e) => handleInputChange("cliffTime", e.target.value)}
-                className={`bg-gray-900 border-gray-600 text-white ${errors.cliffTime ? "border-red-500" : ""}`}
+                onChange={(e) => handleInputChange('cliffTime', e.target.value)}
+                className={`bg-gray-900 border-gray-600 text-white ${errors.cliffTime ? 'border-red-500' : ''}`}
                 disabled={isSubmitting}
               />
               {errors.cliffTime && (
@@ -330,9 +329,9 @@ export function CreateEmployeeForm() {
                 id="totalAmount"
                 type="number"
                 value={formData.totalAmount}
-                onChange={(e) => handleInputChange("totalAmount", e.target.value)}
+                onChange={(e) => handleInputChange('totalAmount', e.target.value)}
                 className={`bg-gray-900 border-gray-600 text-white placeholder-gray-400 ${
-                  errors.totalAmount ? "border-red-500" : ""
+                  errors.totalAmount ? 'border-red-500' : ''
                 }`}
                 placeholder="Enter total token amount"
                 disabled={isSubmitting}
@@ -370,7 +369,7 @@ export function CreateEmployeeForm() {
                 <span>Creating Vesting Account...</span>
               </div>
             ) : (
-              "Create Employee Vesting Account"
+              'Create Employee Vesting Account'
             )}
           </Button>
         </CardContent>

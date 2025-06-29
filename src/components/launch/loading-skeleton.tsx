@@ -1,4 +1,4 @@
-export function LoadingSkeleton({ className = "" }: { className?: string }) {
+export function LoadingSkeleton({ className = '' }: { className?: string }) {
   return <div className={`animate-pulse bg-gray-700 rounded ${className}`}></div>
 }
 

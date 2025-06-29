@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { createContext, useContext, useState, type ReactNode } from "react"
-import type { CompanyAccount } from "@/types/company"
+import { createContext, useContext, useState, type ReactNode } from 'react'
+import type { CompanyAccount } from '@/types/company'
 
 interface CompanyContextType {
   selectedCompany: CompanyAccount | null
@@ -19,7 +19,7 @@ export function CompanyProvider({ children }: { children: ReactNode }) {
 export function useCompany() {
   const context = useContext(CompanyContext)
   if (context === undefined) {
-    throw new Error("useCompany must be used within a CompanyProvider")
+    throw new Error('useCompany must be used within a CompanyProvider')
   }
   return context
 }

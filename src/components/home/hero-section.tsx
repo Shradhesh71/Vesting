@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { ArrowRight, Play, TrendingUp, Users, Lock } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import { ArrowRight, Play, TrendingUp, Users, Lock } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 export function HeroSection() {
   return (
@@ -43,7 +43,7 @@ export function HeroSection() {
             <Button
               size="lg"
               className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700 text-lg px-8 py-4"
-              onClick={() => window.location.href = '/launch'}
+              onClick={() => (window.location.href = '/launch')}
             >
               Launch Vestify
               <ArrowRight className="ml-2 w-5 h-5" />

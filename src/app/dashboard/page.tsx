@@ -1,16 +1,16 @@
-"use client"
+'use client'
 
-import { Navigation } from "@/components/home/navigation"
-import { Footer } from "@/components/home/footer"
-import { CompanySelector } from "@/components/company/company-selector"
-import { MetricsCard } from "@/components/dashboard/metrics-card"
-import { VestingChart } from "@/components/dashboard/vesting-chart"
-import { RecentActivity } from "@/components/dashboard/recent-activity"
-import { useCompany } from "@/contexts/company-context"
-import { Button } from "@/components/ui/button"
-import { Users, TrendingUp, Clock, DollarSign, Plus, List } from "lucide-react"
-import Link from "next/link"
-import { useVestingProgram } from "@/components/vesting/vesting-data-access"
+import { Navigation } from '@/components/home/navigation'
+import { Footer } from '@/components/home/footer'
+import { CompanySelector } from '@/components/company/company-selector'
+import { MetricsCard } from '@/components/dashboard/metrics-card'
+import { VestingChart } from '@/components/dashboard/vesting-chart'
+import { RecentActivity } from '@/components/dashboard/recent-activity'
+import { useCompany } from '@/contexts/company-context'
+import { Button } from '@/components/ui/button'
+import { Users, TrendingUp, Clock, DollarSign, Plus, List } from 'lucide-react'
+import Link from 'next/link'
+import { useVestingProgram } from '@/components/vesting/vesting-data-access'
 
 export default function DashboardPage() {
   const { selectedCompany } = useCompany()

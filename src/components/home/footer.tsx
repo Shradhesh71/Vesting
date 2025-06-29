@@ -1,5 +1,5 @@
-import Link from "next/link"
-import { Shield, Twitter, Github, MessageCircle } from "lucide-react"
+import Link from 'next/link'
+import { Shield, Twitter, Github, MessageCircle } from 'lucide-react'
 
 export function Footer() {
   return (
@@ -21,12 +21,17 @@ export function Footer() {
               <Link href="https://x.com/Shradeshjain835" className="text-gray-400 hover:text-white transition-colors">
                 <Twitter className="w-6 h-6" />
               </Link>
-              <Link href="https://github.com/Shradhesh71/Vesting" 
-                    target="_blank"
-              className="text-gray-400 hover:text-white transition-colors">
+              <Link
+                href="https://github.com/Shradhesh71/Vesting"
+                target="_blank"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <Github className="w-6 h-6" />
               </Link>
-              <Link href="mailto:shradhesh71.work@gmail.com" className="text-gray-400 hover:text-white transition-colors">
+              <Link
+                href="mailto:shradhesh71.work@gmail.com"
+                className="text-gray-400 hover:text-white transition-colors"
+              >
                 <MessageCircle className="w-6 h-6" />
               </Link>
             </div>
@@ -72,12 +77,18 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="https://dapptwitter.vercel.app/" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="https://dapptwitter.vercel.app/"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   DEC X
                 </Link>
               </li>
               <li>
-                <Link href="https://solanacraft.itsmeshradhesh.tech/" className="text-gray-400 hover:text-white transition-colors">
+                <Link
+                  href="https://solanacraft.itsmeshradhesh.tech/"
+                  className="text-gray-400 hover:text-white transition-colors"
+                >
                   SolanaCraft
                 </Link>
               </li>

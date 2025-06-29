@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { Navigation } from "@/components/home/navigation"
-import { Footer } from "@/components/home/footer"
-import { CreateEmployeeForm } from "@/components/employees/create-employee-form"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { Navigation } from '@/components/home/navigation'
+import { Footer } from '@/components/home/footer'
+import { CreateEmployeeForm } from '@/components/employees/create-employee-form'
+import { Button } from '@/components/ui/button'
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
 export default function CreateEmployeePage() {
   return (

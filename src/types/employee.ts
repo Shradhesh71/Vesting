@@ -9,7 +9,7 @@ export interface EmployeeAccount {
   totalAmount: number
   vestedAmount: number
   remainingAmount: number
-  status: "active" | "completed" | "pending" | "paused"
+  status: 'active' | 'completed' | 'pending' | 'paused'
   employeeName?: string
   department?: string
   position?: string

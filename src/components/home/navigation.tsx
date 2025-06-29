@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import Link from "next/link"
-import { Menu, X, Shield } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { WalletButton } from "../solana/solana-provider"
-import { ClusterUiSelect } from "../cluster/cluster-ui"
+import { useState } from 'react'
+import Link from 'next/link'
+import { Menu, X, Shield } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { WalletButton } from '../solana/solana-provider'
+import { ClusterUiSelect } from '../cluster/cluster-ui'
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -55,8 +55,10 @@ export function Navigation() {
           <div className="hidden md:flex items-center space-x-4">
             <WalletButton />
             <ClusterUiSelect />
-            <Button className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
-            onClick={() => window.location.href="/dashboard"}>
+            <Button
+              className="bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
+              onClick={() => (window.location.href = '/dashboard')}
+            >
               Dashboard
             </Button>
           </div>

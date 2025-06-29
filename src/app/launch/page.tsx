@@ -1,11 +1,11 @@
-"use client"
+'use client'
 
-import { Navigation } from "@/components/home/navigation"
-import { Footer } from "@/components/home/footer"
-import { LaunchVestingForm } from "@/components/launch/launch-vesting-form"
-import { ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
+import { Navigation } from '@/components/home/navigation'
+import { Footer } from '@/components/home/footer'
+import { LaunchVestingForm } from '@/components/launch/launch-vesting-form'
+import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 export default function LaunchVestingPage() {
   return (

@@ -1,49 +1,48 @@
-"use client"
+'use client'
 
-import { useMemo, useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { LoadingSkeleton } from "@/components/launch/loading-skeleton"
-import { useCompany } from "@/contexts/company-context"
-import { ellipsify } from "@/utils/ellipsify"
-import { Building2, ChevronDown, Check, Info, FlameKindling, User, Coins, Wallet } from "lucide-react"
-import type { CompanyAccount } from "@/types/company"
-import { useVestingProgram, useVestingProgramAccount } from "../vesting/vesting-data-access"
-import { ExplorerLink } from "../cluster/cluster-ui"
+import { useMemo, useState } from 'react'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { LoadingSkeleton } from '@/components/launch/loading-skeleton'
+import { useCompany } from '@/contexts/company-context'
+import { ellipsify } from '@/utils/ellipsify'
+import { Building2, ChevronDown, Check, Info, FlameKindling, User, Coins, Wallet } from 'lucide-react'
+import type { CompanyAccount } from '@/types/company'
+import { useVestingProgram, useVestingProgramAccount } from '../vesting/vesting-data-access'
+import { ExplorerLink } from '../cluster/cluster-ui'
 
-function CompanyListItem({ 
-  account, 
-  isSelected, 
-  onSelect 
-}: { 
-  account: any, 
-  isSelected: boolean, 
-  onSelect: (company: CompanyAccount) => void 
+function CompanyListItem({
+  account,
+  isSelected,
+  onSelect,
+}: {
+  account: any
+  isSelected: boolean
+  onSelect: (company: CompanyAccount) => void
 }) {
   const { accountQuery } = useVestingProgramAccount({
-    account: account.publicKey, 
+    account: account.publicKey,
   })
 
   const companyName = useMemo(() => accountQuery.data?.companyName ?? '', [accountQuery.data?.companyName])
 
   const handleClick = () => {
     if (accountQuery.data) {
-    
       const completeCompany = {
         publicKey: account.publicKey,
         ...accountQuery.data,
-        companyName: accountQuery.data.companyName || ''
-      };
-      onSelect(completeCompany as CompanyAccount);
+        companyName: accountQuery.data.companyName || '',
+      }
+      onSelect(completeCompany as CompanyAccount)
     }
-  };
-  
+  }
+
   return (
     <button
       key={account.publicKey.toString()}
       // onClick={() => onSelect(account)}
-      onClick={handleClick} 
+      onClick={handleClick}
       className="w-full p-4 text-left hover:bg-gray-700 transition-colors border-b border-gray-700 last:border-b-0"
     >
       <div className="flex items-center justify-between">
@@ -114,15 +113,15 @@ export function CompanySelector() {
                 </Badge>
               </div>
             ) : (
-              "Select a company..."
+              'Select a company...'
             )}
-            <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+            <ChevronDown className={`w-4 h-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
           </Button>
 
           {isOpen && (
             <div className="absolute top-full left-0 right-0 z-50 mt-2 bg-gray-800 border border-gray-600 rounded-lg shadow-lg max-h-64 overflow-y-auto">
               {(accounts.data ?? []).map((account: any) => (
-                <CompanyListItem 
+                <CompanyListItem
                   key={account.publicKey.toString()}
                   account={account}
                   isSelected={selectedCompany?.publicKey.toString() === account.publicKey.toString()}
@@ -142,15 +141,27 @@ export function CompanySelector() {
             <div className="space-y-1 text-sm text-gray-400">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4 text-purple-400" />
-                Owner: <ExplorerLink path={`account/${selectedCompany.owner}`} label={ellipsify(selectedCompany.owner.toString())} />
+                Owner:{' '}
+                <ExplorerLink
+                  path={`account/${selectedCompany.owner}`}
+                  label={ellipsify(selectedCompany.owner.toString())}
+                />
               </div>
               <div className="flex items-center gap-2">
                 <Coins className="h-4 w-4 text-amber-400" />
-                Mint: <ExplorerLink path={`account/${selectedCompany.mint}`} label={ellipsify(selectedCompany.mint.toString())} />
+                Mint:{' '}
+                <ExplorerLink
+                  path={`account/${selectedCompany.mint}`}
+                  label={ellipsify(selectedCompany.mint.toString())}
+                />
               </div>
               <div className="flex items-center gap-2">
                 <Wallet className="h-4 w-4 text-green-400" />
-                Treasury: <ExplorerLink path={`account/${selectedCompany.treasuryTokenAccount}`} label={ellipsify(selectedCompany.treasuryTokenAccount.toString())} />
+                Treasury:{' '}
+                <ExplorerLink
+                  path={`account/${selectedCompany.treasuryTokenAccount}`}
+                  label={ellipsify(selectedCompany.treasuryTokenAccount.toString())}
+                />
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { LoadingSkeleton } from "@/components/launch/loading-skeleton"
-import type { LucideIcon } from "lucide-react"
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { LoadingSkeleton } from '@/components/launch/loading-skeleton'
+import type { LucideIcon } from 'lucide-react'
 
 interface MetricsCardProps {
   title: string
@@ -41,8 +41,8 @@ export function MetricsCard({ title, value, subtitle, icon: Icon, trend, isLoadi
         <div className="flex items-center space-x-2">
           {subtitle && <p className="text-xs text-gray-400">{subtitle}</p>}
           {trend && (
-            <span className={`text-xs ${trend.isPositive ? "text-green-400" : "text-red-400"}`}>
-              {trend.isPositive ? "+" : ""}
+            <span className={`text-xs ${trend.isPositive ? 'text-green-400' : 'text-red-400'}`}>
+              {trend.isPositive ? '+' : ''}
               {trend.value}%
             </span>
           )}

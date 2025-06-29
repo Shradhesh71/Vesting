@@ -23,10 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className={`antialiased`}>
         <AppProviders>
           <CompanyProvider>
-
-          <AppLayout links={links}>
-            {children}
-            </AppLayout>
+            <AppLayout links={links}>{children}</AppLayout>
           </CompanyProvider>
         </AppProviders>
       </body>

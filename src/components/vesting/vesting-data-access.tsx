@@ -47,7 +47,7 @@ export function useVestingProgram() {
     queryFn: () => program.account.vestingAccount.all(),
   })
 
-    const employeeAccounts = useQuery({
+  const employeeAccounts = useQuery({
     queryKey: ['employee-vesting', 'all', { cluster }],
     queryFn: () => program.account.employeeAccount.all(), // Adjust account name to match your program
   })
@@ -67,36 +67,36 @@ export function useVestingProgram() {
       completedSchedules: 0,
       totalValueLocked: 0,
     }
-    
+
     // If we don't have employee accounts data yet, return default metrics
     if (!employeeAccounts.data) return defaultMetrics
-    
+
     // Find employee accounts that belong to this company
     // The vestingAccount field in employee accounts should match the company's publicKey
     const companyEmployees = employeeAccounts.data.filter(
-      (emp) => emp.account.vestingAccount.toString() === companyPublicKey
+      (emp) => emp.account.vestingAccount.toString() === companyPublicKey,
     )
-    
+
     // Current time for vesting calculations
     const now = new Date().getTime() / 1000
-    
+
     // Calculate metrics
     let totalTokensVested = 0
     let totalTokensRemaining = 0
     let activeSchedules = 0
     let completedSchedules = 0
 
-    companyEmployees.forEach(emp => {
+    companyEmployees.forEach((emp) => {
       const account = emp.account
       const totalAmount = account.totalAmount.toNumber()
       const startTime = account.startTime.toNumber()
       const endTime = account.endTime.toNumber()
-      const cliffTime = account.cliffTime.toNumber() 
+      const cliffTime = account.cliffTime.toNumber()
       const totalWithdrawn = account.totalWithdrawn?.toNumber() || 0
-      
+
       // Calculate vested amount based on current time
       let vestedAmount = 0
-      
+
       if (now < startTime || now < cliffTime) {
         vestedAmount = 0
       } else if (now >= endTime) {
@@ -109,14 +109,14 @@ export function useVestingProgram() {
         vestedAmount = Math.floor(totalAmount * (timeElapsed / totalDuration))
         activeSchedules++
       }
-      
+
       // Calculate remaining amount (not yet withdrawn)
       const remainingAmount = vestedAmount - totalWithdrawn
-      
+
       totalTokensVested += vestedAmount
-      totalTokensRemaining += (totalAmount - vestedAmount)
+      totalTokensRemaining += totalAmount - vestedAmount
     })
-    
+
     return {
       totalEmployees: companyEmployees.length,
       totalTokensVested,
@@ -129,20 +129,20 @@ export function useVestingProgram() {
 
   const createVestingAccount = useMutation<string, Error, CreateVestingArgs>({
     mutationKey: ['vestingAccount', 'create', { cluster }],
-    mutationFn: ({companyName, mint}) =>
+    mutationFn: ({ companyName, mint }) =>
       program.methods
-    .createVestingAccount(companyName)
-    .accounts({ mint: new PublicKey(mint), tokenProgram: TOKEN_PROGRAM_ID })
-    .rpc(),
+        .createVestingAccount(companyName)
+        .accounts({ mint: new PublicKey(mint), tokenProgram: TOKEN_PROGRAM_ID })
+        .rpc(),
     onSuccess: async (signature) => {
       transactionToast(signature)
       await accounts.refetch()
-      await employeeAccounts.refetch() 
+      await employeeAccounts.refetch()
     },
     onError: (error) => {
-  console.log('Vesting account creation error:', error)
-  toast.error(`Failed to create vesting account: ${error.message || 'Unknown error'}`)
-},
+      console.log('Vesting account creation error:', error)
+      toast.error(`Failed to create vesting account: ${error.message || 'Unknown error'}`)
+    },
   })
 
   return {
@@ -168,24 +168,19 @@ export function useVestingProgramAccount({ account }: { account: PublicKey }) {
   })
 
   const createEmployeeVestingAccount = useMutation<string, Error, CreateEmployeeArgs>({
-    mutationFn: ({startTime, endTime, totalAmount, cliffTime, beneficiary}) =>
+    mutationFn: ({ startTime, endTime, totalAmount, cliffTime, beneficiary }) =>
       program.methods
-    .createEmployeeAccount(
-      new BN(startTime),
-      new BN(endTime),
-      new BN(totalAmount),
-      new BN(cliffTime)
-    )
-    .accounts({ beneficiary: new PublicKey(beneficiary), vestingAccount: account })
-    .rpc(),
+        .createEmployeeAccount(new BN(startTime), new BN(endTime), new BN(totalAmount), new BN(cliffTime))
+        .accounts({ beneficiary: new PublicKey(beneficiary), vestingAccount: account })
+        .rpc(),
     onSuccess: async (signature) => {
       transactionToast(signature)
       await accounts.refetch()
     },
-     onError: (error) => {
-  console.log('Employee vesting account creation error:', error)
-  toast.error(`Failed to create employee vesting account: ${error.message || 'Unknown error'}`)
-},
+    onError: (error) => {
+      console.log('Employee vesting account creation error:', error)
+      toast.error(`Failed to create employee vesting account: ${error.message || 'Unknown error'}`)
+    },
   })
 
   return {
